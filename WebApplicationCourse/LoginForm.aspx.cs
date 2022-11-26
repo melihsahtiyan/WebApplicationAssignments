@@ -22,11 +22,7 @@ namespace WebApplicationCourse
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            using (SqlConnection con = new SqlConnection(@"Server=MELIH\SQLEXPRESS;Database=Assignment4;Trusted_Connection=True"))
-            {
-
-
-                
+            
                 string email = txtEmail.Text;
 
                 EfUserDal userDal = new EfUserDal();
@@ -41,7 +37,7 @@ namespace WebApplicationCourse
                 {
                     Response.Redirect("Home.aspx");
                 }
-            }
+            
 
         }
     }
