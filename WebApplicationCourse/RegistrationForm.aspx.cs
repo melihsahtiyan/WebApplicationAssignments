@@ -18,37 +18,53 @@ namespace WebApplicationCourse
 
         }
 
-        protected void btnSave_Click(object sender, EventArgs e)
+        private int InsertCustomer()
         {
-            using(SqlConnection con = new SqlConnection("Server=MELIH\\SQLEXPRESS;Database=Assignment4;Trusted_Connection=True"))
+            int recordsAffected = 0;
+
+            using (SqlConnection con = new SqlConnection("Server=MELIH\\SQLEXPRESS;Database=Northwind;Trusted_Connection=True"))
             {
-                SqlCommand command = new SqlCommand("INSERT INTO Users (Email,Password,FirstName,LastName,Gender) " +
-                    "VALUES (@Email,@Password,@FirstName,@LastName,@Gender)", con);
-                command.Parameters.AddWithValue("@Email", txtEmail.Text);
-                command.Parameters.AddWithValue("@Password", txtPassword.Text);
-                command.Parameters.AddWithValue("@FirstName", txtName.Text);
-                command.Parameters.AddWithValue("@LastName", txtSurname.Text);
-                if (btnMale.Checked)
-                {
-                    command.Parameters.AddWithValue("@Gender", 1);
-                }
-                else if(btnFemale.Checked)
-                {
-                    command.Parameters.AddWithValue("@Gender", 0);
-                }
+                SqlCommand command = new SqlCommand("INSERT INTO Customers (CustomerID,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country,Phone)" +
+                    "VALUES (@CustomerID,@CompanyName,@ContactName,@ContactTitle,@Address,@City,@Region,@PostalCode,@Country,@Phone)", con);
+                command.Parameters.AddWithValue("@CustomerID", txtCustomerId.Text);
+                command.Parameters.AddWithValue("@CompanyName", txtCompanyName.Text);
+                command.Parameters.AddWithValue("@ContactName", txtContactName.Text);
+                command.Parameters.AddWithValue("@ContactTitle", txtContactTitle.Text);
+                command.Parameters.AddWithValue("@Address", txtAddress.Text);
+                command.Parameters.AddWithValue("@City", txtCity.Text);
+                command.Parameters.AddWithValue("@Region", txtRegion.Text);
+                command.Parameters.AddWithValue("@PostalCode", txtPostalCode.Text);
+                command.Parameters.AddWithValue("@Country", txtCountry.Text);
+                command.Parameters.AddWithValue("@Phone", txtPhone.Text);
+
                 try
                 {
                     con.Open();
-                    int recordsAffected = command.ExecuteNonQuery();
+                    recordsAffected = command.ExecuteNonQuery();
                 }
-                catch(SqlException error)
+                catch (SqlException)
                 {
-                    throw new Exception(error.Message);
                 }
                 finally
                 {
                     con.Close();
                 }
+            }
+
+            return recordsAffected;
+        }
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            var result = InsertCustomer();
+
+            if (result > 0)
+            {
+                resultTextBox.Text = "Sign up successful!";
+            }
+            else
+            {
+                resultTextBox.Text = "Sign up fail";
             }
         }
 

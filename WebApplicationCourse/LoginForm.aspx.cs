@@ -22,14 +22,9 @@ namespace WebApplicationCourse
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            
-                string email = txtEmail.Text;
 
-                EfUserDal userDal = new EfUserDal();
-
-                User result = userDal.Get(u => u.Email == email);
-
-                if (result == null || result.Password != txtPassword.Text)
+            var result = getUser();
+                if (result == null)
                 {
                     Response.Redirect("RegistrationForm.aspx");
                 }
@@ -39,6 +34,35 @@ namespace WebApplicationCourse
                 }
             
 
+        }
+
+
+        private int getUser()
+        {
+            int recordsAffected = 0;
+
+            using (SqlConnection con = new SqlConnection("Server=MELIH\\SQLEXPRESS;Database=Northwind;Trusted_Connection=True"))
+            {
+                SqlCommand command = new SqlCommand("SELECT c.CompanyName, c.ContactName FROM Customers as c WHERE c.CusomerID = @CustomerID", con);
+                
+                command.Parameters.AddWithValue("@CustomerID", txtCustomerId.Text);
+                
+
+                try
+                {
+                    con.Open();
+                    recordsAffected = command.ExecuteNonQuery();
+                }
+                catch (SqlException)
+                {
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
+
+            return recordsAffected;
         }
     }
 }

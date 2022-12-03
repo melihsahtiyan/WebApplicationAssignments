@@ -22,30 +22,19 @@
             <table>
                 <tr>
                     <td>
-                        <asp:Label id="lblEmail" Text="E-mail" runat="server" />
+                        <asp:Label id="lblCustomerId" Text="Customer Id" runat="server" />
                     </td>
                     <td>
-                        <asp:TextBox id="txtEmail" runat="server" />
+                        <asp:TextBox id="txtCustomerId" runat="server" />
                     </td>
                     <td>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" BackColor="White" BorderColor="#CC3300" ControlToValidate="txtEmail" ErrorMessage="This field can not be empty" ForeColor="Red"></asp:RequiredFieldValidator>
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="txtEmail" ErrorMessage="RegularExpressionValidator" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" BackColor="White" BorderColor="#CC3300" ControlToValidate="txtCustomerId" ErrorMessage="This field can not be empty" ForeColor="Red"></asp:RequiredFieldValidator>
+
                     </td>
                 </tr>
 
-                 <tr>
-                    <td>
-                        <asp:Label id="lblPassword" Text="Password" runat="server" /></td>
-                    <td>
-                        <asp:TextBox id="txtPassword" runat="server" />
-                    </td>
-                    <td>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtPassword" ErrorMessage="This field can not be empty" ForeColor="Red"></asp:RequiredFieldValidator>
-                     </td>
-                </tr>
 
-
-                 <tr>
+                <tr>
                     <td>
                         &nbsp;</td>
                     <td>
@@ -72,6 +61,10 @@
 
                     </td>
                 </tr>
+                
+                <p>
+                    <asp:Label ID="resultTextBox" runat="server"></asp:Label>
+                </p>
             </table>
         </div>
 
