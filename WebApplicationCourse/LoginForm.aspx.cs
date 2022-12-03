@@ -5,10 +5,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using WebApplicationCourse.DataAccess;
-using WebApplicationCourse.DataAccess.Abstract;
-using WebApplicationCourse.DbConnection;
-using WebApplicationCourse.Entities;
 
 namespace WebApplicationCourse
 {
@@ -23,8 +19,8 @@ namespace WebApplicationCourse
         protected void btnLogin_Click(object sender, EventArgs e)
         {
 
-            var result = getUser();
-                if (result == null)
+            var result = getCustomer();
+                if (result == 0)
                 {
                     Response.Redirect("RegistrationForm.aspx");
                 }
@@ -37,21 +33,19 @@ namespace WebApplicationCourse
         }
 
 
-        private int getUser()
+        private int getCustomer()
         {
             int recordsAffected = 0;
 
             using (SqlConnection con = new SqlConnection("Server=MELIH\\SQLEXPRESS;Database=Northwind;Trusted_Connection=True"))
             {
-                SqlCommand command = new SqlCommand("SELECT c.CompanyName, c.ContactName FROM Customers as c WHERE c.CusomerID = @CustomerID", con);
-                
-                command.Parameters.AddWithValue("@CustomerID", txtCustomerId.Text);
+                SqlCommand command= new SqlCommand($"SELECT COUNT(*) FROM Customers as c WHERE c.CustomerID = '{txtCustomerId.Text}'", con);
                 
 
                 try
                 {
                     con.Open();
-                    recordsAffected = command.ExecuteNonQuery();
+                    recordsAffected = (int) command.ExecuteScalar();
                 }
                 catch (SqlException)
                 {
