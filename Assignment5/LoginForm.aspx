@@ -22,13 +22,20 @@
             <table>
                 <tr>
                     <td>
-                        <asp:Label id="lblCustomerId" Text="Customer Id" runat="server" />
+                        <asp:Label id="lblEmail" Text="Email" runat="server" />
                     </td>
                     <td>
-                        <asp:TextBox id="txtCustomerId" runat="server" />
+                        <asp:TextBox id="txtEmail" runat="server" />
                     </td>
                     <td>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" BackColor="White" BorderColor="#CC3300" ControlToValidate="txtCustomerId" ErrorMessage="This field can not be empty" ForeColor="Red"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                                                    BackColor="White" BorderColor="#CC3300" ControlToValidate="txtEmail" ErrorMessage="This field can not be empty" ForeColor="Red"></asp:RequiredFieldValidator>
+                        <td>
+                            <asp:RegularExpressionValidator runat="server" ControlToValidate="txtEmail" 
+                                                            ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">Regex 
+
+                            </asp:RegularExpressionValidator>
+                        </td>
 
                     </td>
                 </tr>

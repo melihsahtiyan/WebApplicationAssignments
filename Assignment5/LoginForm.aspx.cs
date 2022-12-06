@@ -39,7 +39,7 @@ namespace WebApplicationCourse
 
             using (SqlConnection con = new SqlConnection("Server=MELIH\\SQLEXPRESS;Database=Northwind;Trusted_Connection=True"))
             {
-                SqlCommand command= new SqlCommand($"SELECT COUNT(*) FROM Customers as c WHERE c.CustomerID = '{txtCustomerId.Text}'", con);
+                SqlCommand command= new SqlCommand($"SELECT COUNT(*) FROM Users as u WHERE u.Email = '{txtEmail.Text}'", con);
                 
 
                 try
